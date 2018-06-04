@@ -40,7 +40,7 @@ app.post('/webhook/', function(req, res) {
   //          sendTextMessage(sender, text + "!");
   //      }
   //  }
-    var event = req.body.entry[0].messaging[0];
+    var event = req.body.entry.messaging[0];
     var sender = event.sender.id;
     var text = event.message.text;
     senTextMessage(sender, text+"!");
