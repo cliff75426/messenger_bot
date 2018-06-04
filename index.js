@@ -35,10 +35,10 @@ app.post('/webhook/', function(req, res) {
     console.log(req.body.entry[0]);
   console.log(req.body.entry[0].standby);
   console.log('@@testtag'+req.body.entry[0].messaging[0]);
-  console.log('@@testtag'+req.body.entry[0].messaging.recipient);
+  console.log('@@testtag'+req.body.entry[0].messaging[0].recipient);
+  console.log('@@testtag'+req.body.entry[0].messaging[0].message);
   console.log(req.body.entry[0].standby.message);
   console.log(req.body.entry[0].standby.recipient);
-    console.log(req.body.entry[0].messaging[0].message);
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i];
