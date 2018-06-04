@@ -36,16 +36,9 @@ app.post('/webhook/', function(req, res) {
   for(var key in req.body.entry[0]){
     console.log(req.body.entry[0][key]);
   }
-  console.log('@@testtag'+req.body.entry[0].messaging[0]);
-  console.log('@@testtag'+req.body.entry[0].messaging[0].recipient);
-  console.log('@@testtag'+req.body.entry[0].messaging[0].message);
-
-  console.log(req.body.entry[0].standby);
-  console.log(req.body.entry[0].standby.message);
-  console.log(req.body.entry[0].standby.recipient);
-    var messaging_events = req.body.entry[0].messaging;
+    var messaging_events = req.body.entry[0].standby;
     for (var i = 0; i < messaging_events.length; i++) {
-        var event = req.body.entry[0].messaging[i];
+        var event = req.body.entry[0].standby[i];
         var sender = event.sender.id;
         if (event.message && event.message.text) {
             var text = event.message.text;
