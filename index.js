@@ -57,7 +57,7 @@ function sendTextMessage(sender, text) {
         text: text
     };
     request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
+        url: 'https://graph.facebook.com/v3.0/me/messages',
         qs: {
             access_token: token
         },
@@ -70,10 +70,10 @@ function sendTextMessage(sender, text) {
         }
     }, function(error, response, body) {
         if (error) {
-            console.log('messageError:'+messageData);
+            console.log('messageError:'+messageData.text);
             console.log('Error:', error);
         } else if (response.body.error) {
-            console.log('messageBodyError'+messageData);
+            console.log('messageBodyError'+messageData.text);
             console.log('Error: ', response.body.error);
         }
     });
