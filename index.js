@@ -39,9 +39,10 @@ app.post('/webhook/', function(req, res) {
   //          sendTextMessage(sender, text + "!");
   //      }
   //  }
+    console.log("fuck test");
     var event = req.body.entry[0].messaging;
     var sender = event.sender.id;
-    var text = event.message.text;
+    var text = "fuck!!";
     senTextMessage(sender, text+"!");
     res.sendStatus(200);
 });
