@@ -34,7 +34,7 @@ app.post('/webhook/', function(req, res) {
     console.log(counter);
     console.log(req.body.entry[0]);
   console.log(req.body.entry[0].standby);
-  console.log('@@testtag'+req.body.entry[0].messaging);
+  console.log('@@testtag'+req.body.entry[0].messaging[0]);
   console.log('@@testtag'+req.body.entry[0].messaging.recipient);
   console.log(req.body.entry[0].standby.message);
   console.log(req.body.entry[0].standby.recipient);
