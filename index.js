@@ -33,6 +33,7 @@ app.post('/webhook/', function(req, res) {
     counter+=1;
     console.log(counter);
     console.log(req.body.entry[0]);
+    console.log(req.body.entry[0].standby);
     console.log(req.body.entry[0].standby.recipient);
     console.log(req.body.entry[0].standby.message);
     var messaging_events = req.body.entry[0].messaging;
