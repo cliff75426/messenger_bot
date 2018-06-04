@@ -28,7 +28,7 @@ app.get('/webhook', function (req, res) {
 
 
 //const token = "EAAJL7l1CkEsBAPVosMfliFQqZCHB7N1PaZALO6dIAaZCzXDHT559PVddCzZCMHYpvTJniWZARvYTYzM8vFKX5J0YwHnUcHQ4ratKXSKK6qfPb3Nlclo2Pdvfi5IDucfGbjZA2UMil7SzLtp9yOfxrteaTAiDXEjWRCTyGQSERovKvS6cf0ogaLOZCOfqjm9QFEZD";
-const tokem = "11111";
+const token = "11111";
 app.post('/webhook/', function(req, res) {
     counter+=1;
     console.log(counter);
