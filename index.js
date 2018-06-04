@@ -32,7 +32,7 @@ const token = "EAAJL7l1CkEsBAPVosMfliFQqZCHB7N1PaZALO6dIAaZCzXDHT559PVddCzZCMHYp
 app.post('/webhook/', function(req, res) {
     counter+=1;
     console.log(counter);
-    console.log(req.body.entry[0].messaging);
+    console.log(req.body.entry[0]);
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i];
