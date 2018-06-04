@@ -20,7 +20,7 @@ app.listen(app.get('port'), function() {
 });
 
 
-app.get('/wehook', function (req, res) {
+app.get('/webhook', function (req, res) {
 	if (req.query['hub.verify_token'] === 'VERIFY_TOKEN') {
 		res.send(req.query['hub.challenge']);
 	}
