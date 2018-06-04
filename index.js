@@ -33,11 +33,11 @@ app.post('/webhook/', function(req, res) {
     counter+=1;
     console.log(counter);
     console.log(req.body.entry[0]);
+  console.log(req.body.entry[0].standby);
+  console.log(req.body.entry[0].standby.recipient);
+  console.log(req.body.entry[0].standby.message);
     console.log('@@testtag'+req.body.entry[0].messaging);
     console.log(req.body.entry[0].messaging[0].message);
-    console.log(req.body.entry[0].standby);
-    console.log(req.body.entry[0].standby.recipient);
-    console.log(req.body.entry[0].standby.message);
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i];
