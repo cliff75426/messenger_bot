@@ -33,8 +33,8 @@ app.post('/webhook/', function(req, res) {
     counter+=1;
     console.log(counter);
     console.log(req.body.entry[0]);
-  for(var key in req.body.entry[0].messaging){
-    console.log(req.body.entry[0].messaging[key]);
+  for(var key in req.body.entry[0]){
+    console.log(req.body.entry[0][key]);
   }
   console.log('@@testtag'+req.body.entry[0].messaging[0]);
   console.log('@@testtag'+req.body.entry[0].messaging[0].recipient);
