@@ -27,7 +27,8 @@ app.get('/webhook', function (req, res) {
 });
 
 
-const token = "EAAJL7l1CkEsBAPVosMfliFQqZCHB7N1PaZALO6dIAaZCzXDHT559PVddCzZCMHYpvTJniWZARvYTYzM8vFKX5J0YwHnUcHQ4ratKXSKK6qfPb3Nlclo2Pdvfi5IDucfGbjZA2UMil7SzLtp9yOfxrteaTAiDXEjWRCTyGQSERovKvS6cf0ogaLOZCOfqjm9QFEZD";
+const token = "EAADGoFGSUrkBALuFXEncJcnEPzrIwVNDO9GyXzyKVUQoxLVWeZA8l9eH8uqZAfKRZA5Ln6qa0bIQhEajjFisw6hdt1caZAuWynmujaeeyvdiJSZBIkk7JIJTqEkMHPMO6bCYM1XZCFSQ9X5N6RWOSeWJVRZBf8RbsEPv2wCMX36ZCZCYAAyOcqhMY";
+
 //const token = "11111";
 app.post('/webhook/', function(req, res) {
     counter+=1;
