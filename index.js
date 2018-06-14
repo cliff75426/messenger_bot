@@ -33,6 +33,7 @@ app.post('/webhook/', function(req, res) {
 
   var data = req.body;
   console.log(data);
+  console.log(data.entry);
   if(data && data.object === 'page'){
 
     res.sendStatus(200);
