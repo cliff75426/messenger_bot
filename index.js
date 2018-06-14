@@ -40,7 +40,9 @@ app.post('/webhook/', function(req, res) {
       var event = data.entry[0].standby[i];
       console.log(event);
       var sender = event.sender.id;
-
+      if(event.message){
+        handleMessage(event);
+      }
     }
     res.sendStatus(200);
   }
