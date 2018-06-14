@@ -92,7 +92,7 @@ function sendTextMessage(senderID,messageText){
       }
   };
 
-  callSenderAPI(messageData);
+  callSenderAPI(senderID,messageData);
 }
 
 function sendStructuredMessage(senderID){
@@ -128,7 +128,7 @@ function sendStructuredMessage(senderID){
     }
   };
 
-  callSenderAPI(messageData);
+  callSenderAPI(senderID,messageData);
 }
 
 function handlePostback(event){
@@ -142,10 +142,13 @@ function handlePostback(event){
 
 }
 
-function callSenderAPI(messageData){
+function callSenderAPI(senderID,messageData){
 
   request({
       url: 'https://graph.facebook.com/v3.0/me/messages',
+      recipient:{
+        id: senderID
+      },
       qs: {
           access_token:  process.env.PAGE_ACCESS_TOKEN
       },
