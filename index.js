@@ -148,9 +148,7 @@ function callSenderAPI(senderID,messageData){
           access_token:  process.env.PAGE_ACCESS_TOKEN
       },
       method: 'POST',
-      json: {
-         messageData
-      }
+      json: messageData
   }, function(error, response, body) {
       if (error) {
           console.log('messageError:'+messageData.text);
