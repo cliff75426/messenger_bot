@@ -39,9 +39,9 @@ app.post('/webhook/', function(req, res) {
     for( var i = 0; i < data.entry[0].standby.length; i++){
       var event = data.entry[0].standby[i];
       console.log(event);
-      var sender = event.sender.id;
+      var senderID = event.sender.id;
       if(event.message){
-        handleMessage(event);
+        handleMessage(senderID, event.message);
       }
     }
     res.sendStatus(200);
@@ -61,10 +61,7 @@ app.post('/webhook/', function(req, res) {
 
 
 
-function handleMessage(event){
-
-  var senderID = event.sender.id;
-  var received_message = event.message;
+function handleMessage(senderID,received_message){
 
   if(received_message.text){
 
@@ -87,9 +84,9 @@ function sendTextMessage(senderID,messageText){
     recipient:{
         id: senderID
       },
-      message:{
-        text: messageText
-      }
+    message:{
+      text: messageText
+    }
   };
 
   callSenderAPI(senderID,messageData);
