@@ -34,8 +34,14 @@ app.post('/webhook/', function(req, res) {
   var data = req.body;
   console.log(data);
   console.log(data.entry);
-  if(data && data.object === 'page'){
 
+  if(data && data.object === 'page'){
+    for( var i = 0; i < data.entry[0].standby.length; i++){
+      var event = data.entry[0].standby[i];
+      console.log(event);
+      var sender = event.sender.id;
+
+    }
     res.sendStatus(200);
   }
   //  var pageID = entry.id;
