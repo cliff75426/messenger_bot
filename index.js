@@ -104,12 +104,12 @@ function sendStructuredMessage(senderID){
               {
                 type: "postback",
                 title: "YES!",
-                payload "YES!"
+                payload "yes"
               },
               {
                 type: "postback",
                 title: "NO!",
-                payload: "NO!"
+                payload: "no"
               }
             ]
           }]
