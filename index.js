@@ -20,14 +20,15 @@ app.listen(app.get('port'), function() {
 
 
 app.get('/webhook', function (req, res) {
-	if (req.query['hub.verify_token'] === 'VERIFY_TOKEN') {
+//	if (req.query['hub.verify_token'] === 'VERIFY_TOKEN') {
+	if (req.query['hub.verify_token'] === process.env.VERIFICATION_TOKEN) {
 		res.send(req.query['hub.challenge']);
 	}
 	res.send('Wrong token!');
 });
 
 
-const token = "EAADGoFGSUrkBALuFXEncJcnEPzrIwVNDO9GyXzyKVUQoxLVWeZA8l9eH8uqZAfKRZA5Ln6qa0bIQhEajjFisw6hdt1caZAuWynmujaeeyvdiJSZBIkk7JIJTqEkMHPMO6bCYM1XZCFSQ9X5N6RWOSeWJVRZBf8RbsEPv2wCMX36ZCZCYAAyOcqhMY";
+//const token = "EAADGoFGSUrkBALuFXEncJcnEPzrIwVNDO9GyXzyKVUQoxLVWeZA8l9eH8uqZAfKRZA5Ln6qa0bIQhEajjFisw6hdt1caZAuWynmujaeeyvdiJSZBIkk7JIJTqEkMHPMO6bCYM1XZCFSQ9X5N6RWOSeWJVRZBf8RbsEPv2wCMX36ZCZCYAAyOcqhMY";
 
 //const token = "11111";
 app.post('/webhook/', function(req, res) {
@@ -60,7 +61,7 @@ function sendTextMessage(sender, text) {
     request({
         url: 'https://graph.facebook.com/v3.0/me/messages',
         qs: {
-            access_token: token
+            access_token:  process.env.PAGE_ACCESS_TOKEN
         },
         method: 'POST',
         json: {
