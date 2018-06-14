@@ -146,14 +146,14 @@ function callSenderAPI(senderID,messageData){
 
   request({
       url: 'https://graph.facebook.com/v3.0/me/messages',
-      recipient:{
-        id: senderID
-      },
       qs: {
           access_token:  process.env.PAGE_ACCESS_TOKEN
       },
       method: 'POST',
       json: {
+          recipient:{
+            id: senderID
+          },
           message: messageData,
       }
   }, function(error, response, body) {
