@@ -151,10 +151,7 @@ function callSenderAPI(senderID,messageData){
       },
       method: 'POST',
       json: {
-          recipient:{
-            id: senderID
-          },
-          message: messageData,
+         messageData
       }
   }, function(error, response, body) {
       if (error) {
