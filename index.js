@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+
 const app = express();
 var counter = 0;
 app.set('port', (process.env.PORT || 8000));
@@ -20,7 +21,6 @@ app.listen(app.get('port'), function() {
 
 
 app.get('/webhook', function (req, res) {
-//	if (req.query['hub.verify_token'] === 'VERIFY_TOKEN') {
 	if (req.query['hub.verify_token'] === process.env.VERIFICATION_TOKEN) {
 		res.send(req.query['hub.challenge']);
 	}
@@ -28,55 +28,132 @@ app.get('/webhook', function (req, res) {
 });
 
 
-//const token = "EAADGoFGSUrkBALuFXEncJcnEPzrIwVNDO9GyXzyKVUQoxLVWeZA8l9eH8uqZAfKRZA5Ln6qa0bIQhEajjFisw6hdt1caZAuWynmujaeeyvdiJSZBIkk7JIJTqEkMHPMO6bCYM1XZCFSQ9X5N6RWOSeWJVRZBf8RbsEPv2wCMX36ZCZCYAAyOcqhMY";
 
-//const token = "11111";
 app.post('/webhook/', function(req, res) {
-    counter+=1;
-    console.log(counter);
-    console.log(req.body);
-  for(var key in req.body.entry[0]){
-    console.log(req.body.entry[0][key]);
-  }
-    var messaging_events = req.body.entry[0].standby;
-    for (var i = 0; i < messaging_events.length; i++) {
-        var event = req.body.entry[0].standby[i];
-        var sender = event.sender.id;
-        if (event.message && event.message.text) {
-            var text = event.message.text;
-            sendTextMessage(sender, text + "!");
+
+  var data = req.body;
+
+  if(data && data.object === 'page'){
+    data.entry.forEach(function(entry){
+      var pageID = entry.id;
+      entry.messaging.forEach(function (event){
+        if(event.message){
+          handleMessage(event);
+        }else if(event.postback && event.postback.payload){
+          handlePostback(event);
         }
-    }
-    console.log("fuck test");
-  //  var event = req.body.entry[0].messaging[0];
-  //  var senderID = event.sender.id;
-  //  var text = "fuck!!";
-  //  senTextMessage(senderID, text+"!");
+      })
+    })
     res.sendStatus(200);
+  }
 });
-function sendTextMessage(sender, text) {
-    var messageData = {
-        text: text
-    };
-    request({
-        url: 'https://graph.facebook.com/v3.0/me/messages',
-        qs: {
-            access_token:  process.env.PAGE_ACCESS_TOKEN
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id: sender
-            },
-            message: messageData,
+
+
+
+
+function handleMessage(event){
+
+  var senderID = event.sender.id;
+  var received_message = event.message;
+
+  if(received_message.text){
+
+    switch (received_message.text){
+      case '你好' :
+        sendTextMessage(senderID, "我很好喔，那你呢？");
+        break;
+      case 'structure' :
+        sendStructuredMessage(senderID);
+        break;
+    }
+
+  }else if(received_message.attachments){
+    sendTextMessage(senderID, "this is attachments");
+  }
+}
+
+function sendTextMessage(senderID,messageText){
+  var messageData = {
+    recipient:{
+        id: senderID
+      },
+      message:{
+        text: messageText
+      }
+  };
+
+  callSenderAPI(messageData);
+}
+
+function sendStructuredMessage(senderID){
+
+  var messageData = {
+    recipient:{
+      id: senderID
+    },
+    message:{
+      attachment:{
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Is this the right picture?",
+            subtitle: "tap a button to answer.",
+            image_url: "https://www.haskell.org/happy/Happy.gif",
+            buttons :[
+              {
+                type: "postback",
+                title: "YES!",
+                payload "YES!"
+              },
+              {
+                type: "postback",
+                title: "NO!",
+                payload: "NO!"
+              }
+            ]
+          }]
         }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('messageError:'+messageData.text);
-            console.log('Error:', error);
-        } else if (response.body.error) {
-            console.log('messageBodyError'+messageData.text);
-            console.log('Error: ', response.body.error);
-        }
-    });
+      }
+    }
+  };
+
+  callSenderAPI(messageData);
+}
+
+function handlePostback(event){
+
+  var payload = event.postback.payload;
+  if(payload == 'yes'){
+    sendTextMessage(event.sender.id,'This is button yes');
+  }else if(payload == 'no'){
+    sendTextMessage(event.sender.id, 'This is button no');
+  }
+
+}
+
+function callSendAPI(messageData){
+
+  request({
+      url: 'https://graph.facebook.com/v3.0/me/messages',
+      qs: {
+          access_token:  process.env.PAGE_ACCESS_TOKEN
+      },
+      method: 'POST',
+      json: {
+          recipient: {
+              id: sender
+          },
+          message: messageData,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('messageError:'+messageData.text);
+          console.log('Error:', error);
+      } else if (response.body.error) {
+          console.log('messageBodyError'+messageData.text);
+          console.log('Error: ', response.body.error);
+      }
+  });
+
 }
