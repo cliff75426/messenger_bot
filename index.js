@@ -34,18 +34,19 @@ app.post('/webhook/', function(req, res) {
   var data = req.body;
   console.log(data);
   if(data && data.object === 'page'){
-    data.entry.forEach(function(entry){
-      var pageID = entry.id;
-      entry.messaging.forEach(function (event){
-        if(event.message){
-          handleMessage(event);
-        }else if(event.postback && event.postback.payload){
-          handlePostback(event);
-        }
-      })
-    })
+
     res.sendStatus(200);
   }
+  //  var pageID = entry.id;
+  //data.entry.forEach(function(entry){
+  //  entry.messaging.forEach(function (event){
+  //    if(event.message){
+  //      handleMessage(event);
+  //    }else if(event.postback && event.postback.payload){
+  //      handlePostback(event);
+  //    }
+  //  })
+  //})
 });
 
 
