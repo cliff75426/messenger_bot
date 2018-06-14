@@ -62,7 +62,7 @@ app.post('/webhook/', function(req, res) {
 
 
 function handleMessage(senderID,received_message){
-
+  console.log('handle'+senderID);
   if(received_message.text){
 
     switch (received_message.text){
@@ -80,6 +80,7 @@ function handleMessage(senderID,received_message){
 }
 
 function sendTextMessage(senderID,messageText){
+  console.log('Text'+senderID);
   var messageData = {
     recipient:{
         id: senderID
