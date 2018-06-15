@@ -39,11 +39,13 @@ app.post('/webhook/', function(req, res) {
   var data = req.body;
   console.log('data :   '+ JSON.stringify(data));
   if(data && data.object === 'page'){
-    for( var i = 0; i < data.entry[0].standby.length; i++){
-      var event = data.entry[0].standby[i];
-      var senderID = event.sender.id;
-      if(event.message){
-        handleMessage(senderID, event);
+    if('standby' in data.entry[0]){
+      for( var i = 0; i < data.entry[0].standby.length; i++){
+        var event = data.entry[0].standby[i];
+        var senderID = event.sender.id;
+        if(event.message){
+          handleMessage(senderID, event);
+        }
       }
     }
     res.sendStatus(200);
