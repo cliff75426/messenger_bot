@@ -37,6 +37,7 @@ app.get('/webhook', function (req, res) {
 app.post('/webhook/', function(req, res) {
 
   var data = req.body;
+  console.log('data :   '+ data);
   if(data && data.object === 'page'){
     for( var i = 0; i < data.entry[0].standby.length; i++){
       var event = data.entry[0].standby[i];
