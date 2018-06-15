@@ -142,7 +142,7 @@ function handlePostback(event){
 
 }
 
-function callSenderAPI(senderID,messageData){
+function callSenderAPI(messageData){
 
   request({
       url: 'https://graph.facebook.com/v3.0/me/messages',
