@@ -9,8 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apiai": "*",
     "body-parser": "^1.18.3",
+    "cheerio": "^0.22.0",
     "express": "^4.16.3",
+    "moment": "*",
+    "moment-timezone": "*",
     "request": "^2.87.0"
   },
   "devDependencies": {},
