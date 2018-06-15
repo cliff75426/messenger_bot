@@ -47,6 +47,14 @@ app.post('/webhook/', function(req, res) {
           handleMessage(senderID, event);
         }
       }
+    }else if('messaging' in data.entry[0]){
+      for( var i = 0; i < data.entry[0].messaging.length; i++){
+        var event = data.entry[0].messaging[i];
+        var senderID = event.sender.id;
+        if(event.message){
+          handleMessage(senderID, event);
+        }
+      }
     }
     res.sendStatus(200);
   }
