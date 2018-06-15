@@ -6,7 +6,9 @@ var cheerio = require('cheerio');
 var moment = require('moment');
 var moment = require('moment-timezone');
 var apiai = require('apiai');
-var app = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
+
+
+var app_test = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
 
 var app = express();
 app.set('port', (process.env.PORT || 8000));
