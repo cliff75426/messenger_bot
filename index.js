@@ -8,7 +8,7 @@ var moment = require('moment-timezone');
 var apiai = require('apiai');
 
 
-var app_test = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
+var app = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
 
 var app = express();
 app.set('port', (process.env.PORT || 8000));
@@ -55,7 +55,7 @@ app.post('/webhook/', function(req, res) {
 
 function handleMessage(senderID,received_message){
   if(received_message.text){
-    var request = dialogflow.textRequest(received_message.text, {sesionId: senderID});
+    var request = dialogflow.textRequest(received_message.text, {sessionId: senderID});
     request.on('response', function(response){
       console.log("訊息處理");
       if(response.result.action == "train"){
