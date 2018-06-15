@@ -137,7 +137,7 @@ function sendStructuredMessage(senderID){
 }
 
 function handlePostback(event){
-
+  console.log(JSON.stringify(event));
   var payload = event.postback.payload;
   if(payload == 'yes'){
     sendTextMessage(event.sender.id,'This is button yes');
