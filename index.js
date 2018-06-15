@@ -45,6 +45,8 @@ app.post('/webhook/', function(req, res) {
         var senderID = event.sender.id;
         if(event.message){
           handleMessage(senderID, event);
+        }else if(event.postback && event.postback.payload){
+          handlePostback(senderID, event);
         }
       }
     }else if('messaging' in data.entry[0]){
@@ -53,6 +55,8 @@ app.post('/webhook/', function(req, res) {
         var senderID = event.sender.id;
         if(event.message){
           handleMessage(senderID, event);
+        }else if(event.postback && event.postback.payload){
+          handlePostback(senderID, event);
         }
       }
     }
@@ -146,13 +150,13 @@ function sendStructuredMessage(senderID){
   callSenderAPI(messageData);
 }
 
-function handlePostback(event){
+function handlePostback(senderID,event){
   console.log(JSON.stringify(event));
   var payload = event.postback.payload;
   if(payload == 'yes'){
-    sendTextMessage(event.sender.id,'This is button yes');
+    sendTextMessage(senderID,'This is button yes');
   }else if(payload == 'no'){
-    sendTextMessage(event.sender.id, 'This is button no');
+    sendTextMessage(senderID, 'This is button no');
   }
 
 }
