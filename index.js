@@ -41,7 +41,6 @@ app.post('/webhook/', function(req, res) {
   if(data && data.object === 'page'){
     for( var i = 0; i < data.entry[0].standby.length; i++){
       var event = data.entry[0].standby[i];
-      console.log(event);
       var senderID = event.sender.id;
       if(event.message){
         handleMessage(senderID, event);
@@ -62,6 +61,8 @@ function handleMessage(senderID,event){
     var request = dialogflow.textRequest(received_message.text, {sessionId: senderID});
     request.on('response', function(response){
       console.log("訊息處理");
+      console.log('REQUEST: '+ JSON.stringify(request));
+      console.log('Response: '+ JSON.stringify(response));
       if(response.result.action == "train"){
         strStation = response.result.parameters.start_station;
         arrStation = response.result.parameters.arrive_station;
