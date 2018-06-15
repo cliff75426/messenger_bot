@@ -65,6 +65,7 @@ function handleMessage(senderID,received_message){
         console.log('終點： ' + arrStation);
         TrainSchedule(strStation,arrStation,senderID);
       }else{
+        console.log("test");
         switch (received_message.text){
           case '你好' :
             sendTextMessage(senderID, "我很好喔，那你呢？");
