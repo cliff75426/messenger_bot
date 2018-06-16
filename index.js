@@ -73,6 +73,8 @@ function handleMessage(senderID,event){
 
   if(received_message.text){
     var request = dialogflow.textRequest(received_message.text, {sessionId: senderID});
+
+    console.log('REQUEST111: '+ dialogflow.toString());
     console.log('REQUEST: '+ dialogflow.textRequest(received_message.text, {sessionId: senderID}).toString());
     request.on('response', function(response){
       console.log("訊息處理");
