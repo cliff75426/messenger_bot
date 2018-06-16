@@ -199,7 +199,7 @@ function TrainSchedule(str_station, arr_station, recipientId){
   arr_sta = station_code(arr_station);
   var checkTime = moment().tz('Asia/Taipei').format('HHmm').toString();
   if(checkTime >= 2300){
-    checkTime = '2200';
+    checkTime = '2000';
   }
   var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString()+'&fromstation=' +str_sta+'&tostation='+arr_sta+'&trainclass=2&fromtime=' + checkTime  +'&totime=2359';
   console.log(url);
