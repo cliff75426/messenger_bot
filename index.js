@@ -8,7 +8,7 @@ const moment = require('moment');
 const moment_timezone = require('moment-timezone');
 
 
-var dialogflow = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
+const dialogflow = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
 
 var app = express();
 app.set('port', (process.env.PORT || 8000));
