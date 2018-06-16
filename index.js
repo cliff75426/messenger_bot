@@ -97,6 +97,9 @@ function handleMessage(senderID,event){
         }
       }
     });
+    request.on('error',function(error){
+      console.log(error);
+    });
     request.end();
   }else if(received_message.attachments){
     sendTextMessage(senderID, "this is attachments");
