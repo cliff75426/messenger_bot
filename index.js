@@ -73,9 +73,9 @@ function handleMessage(senderID,event){
 
   if(received_message.text){
     var request = dialogflow.textRequest(received_message.text, {sessionId: senderID});
+    console.log('REQUEST: '+ request.toString());
     request.on('response', function(response){
       console.log("訊息處理");
-      console.log('REQUEST: '+ request.toString());
 //      console.log('Response: '+ JSON.stringify(response));
       if(response.result.action == "TRAIN"){
         strStation = response.result.parameters.start_station;
