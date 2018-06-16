@@ -201,7 +201,7 @@ function TrainSchedule(str_station, arr_station, recipientId){
   var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString()+'&fromstation=' +str_sta+'&tostation='+arr_sta+'&trainclass=2&fromtime=' + moment().tz('Asia/Taipei').format('HHmm').toString()+'&totime=2359';
   console.log(url);
 
-  require(url, (err, res, body)=>{
+  request(url, (err, res, body)=>{
     console.log(body);
     var $ = cheerio.load(body);
     var train_class;
