@@ -196,7 +196,7 @@ function TrainSchedule(str_station, arr_station, recipientId){
   str_sta = station_code(str_station);
   arr_sta = station_code(str_station);
 
-  var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString()+'&fromstation=' +str_sta+'&tostation='+arr_sta+'&trainclass=2&fromtime=' + momet().tz('Asia/Taipei').format('HHmm').toString()+'&totime=2359';
+  var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString()+'&fromstation=' +str_sta+'&tostation='+arr_sta+'&trainclass=2&fromtime=' + moment().tz('Asia/Taipei').format('HHmm').toString()+'&totime=2359';
   console.log(url);
 
   require(url, (err, res, body)=>{
