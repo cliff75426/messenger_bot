@@ -79,7 +79,7 @@ function handleMessage(senderID,event){
     request.on('response', function(response){
       console.log("訊息處理");
 //      console.log('Response: '+ JSON.stringify(response));
-      if(response.result.action == "TRAIN"){
+      if(response.result.action == "train"){
         strStation = response.result.parameters.start_station;
         arrStation = response.result.parameters.arrive_station;
         console.log('起點： ' + strStation);
