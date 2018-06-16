@@ -192,6 +192,8 @@ function TrainSchedule(str_station, arr_station, recipientId){
 
 
   console.log('查火車');
+  console.log(str_station);
+  console.log(arr_station);
   var str_sta,ar_sta;
   str_sta = station_code(str_station);
   arr_sta = station_code(str_station);
