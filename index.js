@@ -237,7 +237,7 @@ function elasticsearch_result( from_number, size_number, query_string){
 
 function sendSearchMessage( query_string,  senderID){
 
-  var search_results = elasticsearch_result(0,0,query_string);
+  var search_results = elasticsearch_result(0,10,query_string);
 
   var messageData = {
     recipient:{
