@@ -267,8 +267,8 @@ function sendSearchMessage( query_string,  senderID){
     index: 'news',
     type: 'fulltext',
     body: {
-      from: from_number,
-      size: size_number,
+      from: 0,
+      size: 10,
       query: {
         match: {
           content: query_string
