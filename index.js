@@ -213,29 +213,30 @@ function elasticsearch_result( from_number, size_number, query_string){
     }
   });
 
-client.search({
-  index: 'news',
-  type: 'fulltext',
-  body: {
-
-    query: {
-      match: {
-        content: '陳水扁'
-      }
-    },
-    highlight : {
-        fields : {
-            content : {}
+  client.search({
+    index: 'news',
+    type: 'fulltext',
+    body: {
+      from: from_number,
+      size: size_number,
+      query: {
+        match: {
+          content: query_string
         }
+      },
+      highlight : {
+          fields : {
+              content : {}
+          }
+      }
     }
-  }
-  }).then(function (resp) {
-    var hits = resp.hits.hits;
-    //console.log(hits);
-    console.log(resp);
-  }, function (err) {
-    console.trace(err.message);
-});
+    }).then(function (resp) {
+      var hits_result = resp.hits.hits;
+      //console.log(hits);
+      console.log(hits_result);
+    }, function (err) {
+      console.trace(err.message);
+  });
 
   return hits_result;
 }

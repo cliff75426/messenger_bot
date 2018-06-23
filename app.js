@@ -20,9 +20,11 @@ client.search({
   index: 'news',
   type: 'fulltext',
   body: {
+    from: 10,
+    size: 4,
     query: {
       match: {
-        content: '陳水扁'
+        content: "陳水扁"
       }
     },
     highlight : {
