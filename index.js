@@ -197,11 +197,13 @@ function TrainSchedule(str_station, arr_station, recipientId){
   });
 }
 
-function elasticsearch_result( from_number, size_number, query_string){
+function elasticsearch_result(from_number,size_number,query_string){
   var client = new elasticsearch.Client({
     host: '140.123.4.74:9200',
     log: 'trace'
   });
+
+
   client.ping({
     // ping usually has a 3000ms timeout
     requestTimeout: 1000
@@ -238,7 +240,7 @@ function elasticsearch_result( from_number, size_number, query_string){
       console.trace(err.message);
   });
 
-  return hits_result;
+//  return hits_result;
 }
 
 function sendSearchMessage( query_string,  senderID){
