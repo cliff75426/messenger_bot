@@ -15,7 +15,8 @@
     "express": "^4.16.3",
     "moment": "*",
     "moment-timezone": "*",
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "elasticsearch": "*"
   },
   "devDependencies": {},
   "description": "the Project is messenger bot."
