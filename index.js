@@ -293,19 +293,19 @@ function sendSearchMessage( query_string,  senderID){
         payload: {
           template_type: "generic",
           elements: [{
-            title: "總共搜尋： " + resp.hits.total,
-            subtitle: query_string,
+            title: "Is this the right picture?",
+            subtitle: "tap a button to answer.",
             image_url: "https://www.haskell.org/happy/Happy.gif",
             buttons :[
               {
                 type: "postback",
-                title: "1-10",
-                payload: "0"
+                title: "YES!",
+                payload: "yes"
               },
               {
                 type: "postback",
-                title: "10-20",
-                payload: "10"
+                title: "NO!",
+                payload: "no"
               }
             ]
           }]
@@ -313,6 +313,36 @@ function sendSearchMessage( query_string,  senderID){
       }
     }
   };
+  //var messageData = {
+  //  recipient:{
+  //    id: senderID
+  //  },
+  //  message:{
+  //    attachment:{
+  //      type: "template",
+  //      payload: {
+  //        template_type: "generic",
+  //        elements: [{
+  //          title: "總共搜尋： " + resp.hits.total,
+  //          subtitle: query_string,
+  //          image_url: "https://www.haskell.org/happy/Happy.gif",
+  //          buttons :[
+  //            {
+  //              type: "postback",
+  //              title: "1-10",
+  //              payload: "0"
+  //            },
+  //            {
+  //              type: "postback",
+  //              title: "10-20",
+  //              payload: "10"
+  //            }
+  //          ]
+  //        }]
+  //      }
+  //    }
+  //  }
+  //};
   callSendAPI(messageData);
 
     }, function (err) {
