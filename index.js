@@ -6,7 +6,7 @@ const apiai = require('apiai');
 var cheerio = require('cheerio');
 var moment = require('moment');
 var moment_timezone = require('moment-timezone');
-
+var elasticsearch = require('elasticsearch');
 
 const dialogflow = apiai("6522ed4d07fe42f09edd4963b477b2ca","2bec7b4562fa4c6e81db5188e5c54713");
 
@@ -78,13 +78,14 @@ function handleMessage(senderID,event){
     console.log('REQUEST: '+ dialogflow.textRequest(received_message.text, {sessionId: senderID}).toString());
     request.on('response', function(response){
       console.log("訊息處理");
-//      console.log('Response: '+ JSON.stringify(response));
+
       if(response.result.action == "train"){
         strStation = response.result.parameters.start_station;
         arrStation = response.result.parameters.arrive_station;
         console.log('起點： ' + strStation);
         console.log('終點： ' + arrStation);
         TrainSchedule(strStation,arrStation,senderID);
+
       }else{
         console.log("test");
         switch (received_message.text){
@@ -93,6 +94,9 @@ function handleMessage(senderID,event){
             break;
           case 'structure' :
             sendStructuredMessage(senderID);
+            break;
+          default :
+            elasticsearch_result(received_message.text);
             break;
         }
       }
@@ -229,6 +233,44 @@ function TrainSchedule(str_station, arr_station, recipientId){
     };
     callSendAPI(messageData);
   });
+}
+
+function elasticsearch_result( query_word){
+  var client = new elasticsearch.Client({
+    host: '140.123.4.74:9200',
+    log: 'trace'
+  });
+
+
+  client.ping({
+    // ping usually has a 3000ms timeout
+    requestTimeout: 1000
+  }, function (error) {
+    if (error) {
+      console.trace('elasticsearch cluster is down!');
+    } else {
+      console.log('All is well');
+    }
+  });
+
+  client.search({
+    index: 'news',
+    type: 'fulltext',
+    body: {
+      query: {
+        match: {
+          content: '陳水扁'
+        }
+      }
+    }
+    }).then(function (resp) {
+      var hits = resp.hits.hits;
+      console.log(hits);
+    }, function (err) {
+      console.trace(err.message);
+  });
+
+
 }
 
 function station_code(station_name){
