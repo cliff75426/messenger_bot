@@ -235,7 +235,7 @@ function TrainSchedule(str_station, arr_station, recipientId){
   });
 }
 
-function elasticsearch_result( query_word){
+function elasticsearch_result( query_string){
   var client = new elasticsearch.Client({
     host: '140.123.4.74:9200',
     log: 'trace'
@@ -259,7 +259,7 @@ function elasticsearch_result( query_word){
     body: {
       query: {
         match: {
-          content: '陳水扁'
+          content: query_string
         }
       }
     }
