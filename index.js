@@ -127,7 +127,7 @@ function sendTextMessage(senderID,messageText){
 function handlePostback(senderID,event){
   console.log(JSON.stringify(event));
   var payload = event.postback.payload;
-  switch(payload)
+
 
 }
 
