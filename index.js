@@ -294,6 +294,7 @@ function sendSearchMessage( query_string,  senderID){
           elements: [{
             title: "總共搜尋： " + resp.hits.total,
             subtitle: query_string,
+            image_url: "https://www.haskell.org/happy/Happy.gif",
             buttons :[
               {
                 type: "postback",
