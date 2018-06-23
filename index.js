@@ -95,7 +95,7 @@ function handleMessage(senderID,event){
             sendStructuredMessage(senderID);
             break;
           default :
-           sendSearchMessage(received_message.text);
+            sendSearchMessage(received_message.text);
             //elasticsearch_result(0,10,"安全");
             break;
         }
@@ -233,8 +233,8 @@ function elasticsearch_result(from_number,size_number,query_string){
       }
     }
     }).then(function (resp) {
-      var hits_result = resp.hits.hits;
-      return hits_result;
+
+      return resp;
       //console.log(hits_result);
     }, function (err) {
       console.trace(err.message);
@@ -256,7 +256,7 @@ function sendSearchMessage( query_string,  senderID){
         payload: {
           template_type: "generic",
           elements: [{
-            title: "總共搜尋： " + search_results.total,
+            title: "總共搜尋： " + search_results.hits.total,
             subtitle: query_string,
             buttons :[
               {
