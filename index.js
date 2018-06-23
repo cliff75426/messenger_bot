@@ -95,7 +95,7 @@ function handleMessage(senderID,event){
             sendStructuredMessage(senderID);
             break;
           default :
-            sendSearchMessage(received_message.text);
+            sendSearchMessage(received_message.text,senderID);
             //elasticsearch_result(0,10,"安全");
             break;
         }
@@ -293,19 +293,19 @@ function sendSearchMessage( query_string,  senderID){
         payload: {
           template_type: "generic",
           elements: [{
-            title: "Is this the right picture?",
-            subtitle: "tap a button to answer.",
+            title: "總共搜尋： " + resp.hits.total,
+            subtitle: query_string,
             image_url: "https://www.haskell.org/happy/Happy.gif",
             buttons :[
               {
                 type: "postback",
-                title: "YES!",
-                payload: "yes"
+                title: "1-10",
+                payload: "0"
               },
               {
                 type: "postback",
-                title: "NO!",
-                payload: "no"
+                title: "10-20",
+                payload: "10"
               }
             ]
           }]
@@ -313,36 +313,6 @@ function sendSearchMessage( query_string,  senderID){
       }
     }
   };
-  //var messageData = {
-  //  recipient:{
-  //    id: senderID
-  //  },
-  //  message:{
-  //    attachment:{
-  //      type: "template",
-  //      payload: {
-  //        template_type: "generic",
-  //        elements: [{
-  //          title: "總共搜尋： " + resp.hits.total,
-  //          subtitle: query_string,
-  //          image_url: "https://www.haskell.org/happy/Happy.gif",
-  //          buttons :[
-  //            {
-  //              type: "postback",
-  //              title: "1-10",
-  //              payload: "0"
-  //            },
-  //            {
-  //              type: "postback",
-  //              title: "10-20",
-  //              payload: "10"
-  //            }
-  //          ]
-  //        }]
-  //      }
-  //    }
-  //  }
-  //};
   callSendAPI(messageData);
 
     }, function (err) {
