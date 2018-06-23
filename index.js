@@ -95,8 +95,8 @@ function handleMessage(senderID,event){
             sendStructuredMessage(senderID);
             break;
           default :
-           //sendSearchMessage(received_message.text);
-            elasticsearch_result(0,10,"安全");
+           sendSearchMessage(received_message.text);
+            //elasticsearch_result(0,10,"安全");
             break;
         }
       }
@@ -234,13 +234,12 @@ function elasticsearch_result(from_number,size_number,query_string){
     }
     }).then(function (resp) {
       var hits_result = resp.hits.hits;
-      //console.log(hits);
-      console.log(hits_result);
+      return hits_result;
+      //console.log(hits_result);
     }, function (err) {
       console.trace(err.message);
   });
 
-//  return hits_result;
 }
 
 function sendSearchMessage( query_string,  senderID){
