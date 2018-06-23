@@ -95,7 +95,7 @@ function handleMessage(senderID,event){
             sendStructuredMessage(senderID);
             break;
           default :
-            elasticsearch_result(3,2,received_message.text);
+            sendSearchMessage(received_message.text);
             break;
         }
       }
@@ -122,50 +122,12 @@ function sendTextMessage(senderID,messageText){
   callSendAPI(messageData);
 }
 
-function sendStructuredMessage(senderID){
 
-  var messageData = {
-    recipient:{
-      id: senderID
-    },
-    message:{
-      attachment:{
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "Is this the right picture?",
-            subtitle: "tap a button to answer.",
-            image_url: "https://www.haskell.org/happy/Happy.gif",
-            buttons :[
-              {
-                type: "postback",
-                title: "YES!",
-                payload: "yes"
-              },
-              {
-                type: "postback",
-                title: "NO!",
-                payload: "no"
-              }
-            ]
-          }]
-        }
-      }
-    }
-  };
-
-  callSendAPI(messageData);
-}
 
 function handlePostback(senderID,event){
   console.log(JSON.stringify(event));
   var payload = event.postback.payload;
-  if(payload == 'yes'){
-    sendTextMessage(senderID,'This is button yes');
-  }else if(payload == 'no'){
-    sendTextMessage(senderID, 'This is button no');
-  }
+  switch(payload)
 
 }
 
@@ -268,12 +230,14 @@ function elasticsearch_result( from_number, size_number, query_string){
       console.trace(err.message);
   });
 
-
+  return hits;
 }
 
 
 
-function sendSearchMessage(senderID){
+function sendSearchMessage( query_string,  senderID){
+
+  var search_results = elasticsearch_result(0,0,query_string);
 
   var messageData = {
     recipient:{
@@ -285,19 +249,18 @@ function sendSearchMessage(senderID){
         payload: {
           template_type: "generic",
           elements: [{
-            title: "Is this the right picture?",
-            subtitle: "tap a button to answer.",
-            image_url: "https://www.haskell.org/happy/Happy.gif",
+            title: "總共搜尋： " + search_results.total,
+            subtitle: query_string,
             buttons :[
               {
                 type: "postback",
-                title: "YES!",
-                payload: "yes"
+                title: "1-10",
+                payload: "0"
               },
               {
                 type: "postback",
-                title: "NO!",
-                payload: "no"
+                title: "10-20",
+                payload: "10"
               }
             ]
           }]
