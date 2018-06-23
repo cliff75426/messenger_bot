@@ -282,6 +282,7 @@ function sendSearchMessage( query_string,  senderID){
     }
     }).then(function (resp) {
 
+  console.log(resp.hits.total);
   var messageData = {
     recipient:{
       id: senderID
