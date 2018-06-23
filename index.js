@@ -85,7 +85,6 @@ function handleMessage(senderID,event){
         console.log('起點： ' + strStation);
         console.log('終點： ' + arrStation);
         TrainSchedule(strStation,arrStation,senderID);
-
       }else{
         console.log("test");
         switch (received_message.text){
@@ -96,7 +95,7 @@ function handleMessage(senderID,event){
             sendStructuredMessage(senderID);
             break;
           default :
-            elasticsearch_result(received_message.text);
+            elasticsearch_result(3,2,received_message.text);
             break;
         }
       }
@@ -235,13 +234,11 @@ function TrainSchedule(str_station, arr_station, recipientId){
   });
 }
 
-function elasticsearch_result( query_string){
+function elasticsearch_result( from_number, size_number, query_string){
   var client = new elasticsearch.Client({
     host: '140.123.4.74:9200',
     log: 'trace'
   });
-
-
   client.ping({
     // ping usually has a 3000ms timeout
     requestTimeout: 1000
@@ -257,6 +254,8 @@ function elasticsearch_result( query_string){
     index: 'news',
     type: 'fulltext',
     body: {
+      from: from_number,
+      size: size_number,
       query: {
         match: {
           content: query_string
@@ -265,13 +264,69 @@ function elasticsearch_result( query_string){
     }
     }).then(function (resp) {
       var hits = resp.hits.hits;
-      console.log(hits);
     }, function (err) {
       console.trace(err.message);
   });
 
 
 }
+
+
+
+function sendSearchMessage(senderID){
+
+  var messageData = {
+    recipient:{
+      id: senderID
+    },
+    message:{
+      attachment:{
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Is this the right picture?",
+            subtitle: "tap a button to answer.",
+            image_url: "https://www.haskell.org/happy/Happy.gif",
+            buttons :[
+              {
+                type: "postback",
+                title: "YES!",
+                payload: "yes"
+              },
+              {
+                type: "postback",
+                title: "NO!",
+                payload: "no"
+              }
+            ]
+          }]
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function station_code(station_name){
   switch (station_name) {
