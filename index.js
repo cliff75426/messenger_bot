@@ -232,7 +232,7 @@ function elasticsearch_result( from_number, size_number, query_string){
       console.trace(err.message);
   });
 
-  return hits_result;
+
 }
 
 
