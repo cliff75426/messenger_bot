@@ -244,8 +244,44 @@ function elasticsearch_result(from_number,size_number,query_string){
 
 function sendSearchMessage( query_string,  senderID){
 
-  var search_results = elasticsearch_result(0,10,query_string);
-console.log(search_results);
+
+
+  var client = new elasticsearch.Client({
+    host: '140.123.4.74:9200',
+    log: 'trace'
+  });
+
+
+  client.ping({
+    // ping usually has a 3000ms timeout
+    requestTimeout: 1000
+  }, function (error) {
+    if (error) {
+      console.trace('elasticsearch cluster is down!');
+    } else {
+      console.log('All is well');
+    }
+  });
+
+  client.search({
+    index: 'news',
+    type: 'fulltext',
+    body: {
+      from: from_number,
+      size: size_number,
+      query: {
+        match: {
+          content: query_string
+        }
+      },
+      highlight : {
+          fields : {
+              content : {}
+          }
+      }
+    }
+    }).then(function (resp) {
+
   var messageData = {
     recipient:{
       id: senderID
@@ -256,7 +292,7 @@ console.log(search_results);
         payload: {
           template_type: "generic",
           elements: [{
-            title: "總共搜尋： " + search_results.hits.total,
+            title: "總共搜尋： " + resp.hits.total,
             subtitle: query_string,
             buttons :[
               {
@@ -275,8 +311,11 @@ console.log(search_results);
       }
     }
   };
-
   callSendAPI(messageData);
+
+    }, function (err) {
+      console.trace(err.message);
+  });
 }
 
 
