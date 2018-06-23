@@ -225,13 +225,14 @@ function elasticsearch_result( from_number, size_number, query_string){
       }
     }
     }).then(function (resp) {
-      var hits = resp.hits.hits;
-      console.log(hits);
+      var hits_result = resp.hits.hits;
+      console.log(hits_result);
     }, function (err) {
+      console.log("error");
       console.trace(err.message);
   });
 
-  return hits;
+  return hits_result;
 }
 
 
