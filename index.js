@@ -95,7 +95,8 @@ function handleMessage(senderID,event){
             sendStructuredMessage(senderID);
             break;
           default :
-            sendSearchMessage(received_message.text);
+           // sendSearchMessage(received_message.text);
+            elasticsearch_result(0,10,"安全");
             break;
         }
       }
@@ -232,7 +233,7 @@ function elasticsearch_result( from_number, size_number, query_string){
       console.trace(err.message);
   });
 
-
+  return hits_result;
 }
 
 
