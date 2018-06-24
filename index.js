@@ -348,7 +348,7 @@ function weblist(resp,senderID){
 
   }
 
-console.log(JSON.stingify(result));
+console.log(JSON.stringify(result));
 
   var messageData = {
   "recipient":{
