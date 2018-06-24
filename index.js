@@ -340,14 +340,14 @@ function weblist(resp,senderID){
     };
 
     if(i == 0){
-     result = add_string;
+     result = JSON.stringify(add_string);
     }else{
-     result = result +","+add_string;
+     result = result +","+JSON.stringify(add_string);
     }
 
 
   }
-
+result = JSON.parse(result);
 console.log(JSON.stringify(result));
 
   var messageData = {
