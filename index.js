@@ -348,8 +348,9 @@ function weblist(resp,senderID){
 
   }
 console.log(result);
-//result = JSON.parse(result);
-//console.log(JSON.stringify(result));
+result = "["+result+"]";
+result = JSON.parse(result);
+console.log(JSON.stringify(result));
 
   var messageData = {
   "recipient":{
@@ -361,9 +362,8 @@ console.log(result);
       "payload": {
         "template_type": "list",
         "top_element_style": "compact",
-        "elements": [
-          result
-        ],
+        "elements":
+          result,
          "buttons": [
           {
             "title": "View More",
