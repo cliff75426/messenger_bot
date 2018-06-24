@@ -131,7 +131,7 @@ function handlePostback(senderID,event){
   var payload = event.postback.payload;
   var payload = JSON.parse(payload);
   console.log("HANDLE"+JSON.stringify(payload));
-  result(payload.from_number,payload.search_string,senderID);
+  result(payload.from_position,payload.search_string,senderID);
 }
 
 function callSendAPI(messageData){
