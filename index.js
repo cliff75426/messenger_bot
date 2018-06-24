@@ -348,8 +348,8 @@ function weblist(resp,senderID){
 
   }
 console.log(result);
-result = JSON.parse(result);
-console.log(JSON.stringify(result));
+//result = JSON.parse(result);
+//console.log(JSON.stringify(result));
 
   var messageData = {
   "recipient":{
