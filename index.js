@@ -129,9 +129,9 @@ function sendTextMessage(senderID,messageText){
 function handlePostback(senderID,event){
   console.log(JSON.stringify(event));
   var payload = event.postback.payload;
+  var payload = JSON.parse(payload);
 
-
-weblist(senderID);
+  result(payload.from_number,payload.search_string,senderID);
 }
 
 function callSendAPI(messageData){
@@ -326,7 +326,7 @@ function weblist(resp,senderID){
 
   var result;
   var source = resp.hits.hits._source;
-  for (var i = 0, i<=resp.hits.hits.length, i++){
+  for (var i = 0, i < resp.hits.hits.length, i++){
     var add_string = {
       "title": source.title,
       "subtitle": source.content,
@@ -360,7 +360,6 @@ console.log(result);
         "template_type": "list",
         "top_element_style": "compact",
         "elements": [
-          result,
           result
         ],
          "buttons": [
@@ -383,7 +382,7 @@ console.log(result);
 }
 
 
-function result( from_number, query_string){
+function result( from_number, query_string,senderID){
 
 
   var client = new elasticsearch.Client({
@@ -421,6 +420,8 @@ function result( from_number, query_string){
       }
     }
     }).then(function (resp) {
+
+      weblist(resp,senderID);
 
     }, function (err) {
       console.trace(err.message);
