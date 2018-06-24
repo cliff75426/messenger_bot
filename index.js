@@ -300,8 +300,10 @@ function sendSearchMessage( query_string,  senderID){
               {
                 type: "postback",
                 title: "1-10",
-                message: "hello!!!",
-                payload: "0"
+                payload: [{
+                  from_number: 0,
+                  search_string: "query_string"
+                }]
               },
               {
                 type: "postback",
