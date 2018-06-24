@@ -409,7 +409,7 @@ function result( from_number, query_string,senderID){
     type: 'fulltext',
     body: {
       from: from_number,
-      size: ,
+      size: 3,
       query: {
         match: {
           content: query_string
