@@ -130,7 +130,7 @@ function handlePostback(senderID,event){
   console.log(JSON.stringify(event));
   var payload = event.postback.payload;
   var payload = JSON.parse(payload);
-
+  console.log("HANDLE"+payload);
   result(payload.from_number,payload.search_string,senderID);
 }
 
