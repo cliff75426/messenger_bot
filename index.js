@@ -294,12 +294,13 @@ function sendSearchMessage( query_string,  senderID){
         payload: {
           template_type: "generic",
           elements: [{
-            title: "總共搜尋： " + resp.hits.total,
-            subtitle: query_string,
+            title: query_string,
+            subtitle: "總共搜尋： " + resp.hits.total+ " 筆",
             buttons :[
               {
                 type: "postback",
                 title: "1-10",
+                message: "hello!!!",
                 payload: "0"
               },
               {
