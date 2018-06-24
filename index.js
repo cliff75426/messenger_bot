@@ -327,7 +327,7 @@ function weblist(senderID){
 
   var messageData = {
   "recipient":{
-    "id":senderId
+    "id":senderID
   },
   "message": {
     "attachment": {
