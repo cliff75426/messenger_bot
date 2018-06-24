@@ -326,7 +326,8 @@ function weblist(resp,senderID){
 
   var result;
   var source = resp.hits.hits._source;
-  for (var i = 0, i < resp.hits.hits.length, i++){
+
+  for (var i = 0; i < resp.hits.hits.length; i++){
     var add_string = {
       "title": source.title,
       "subtitle": source.content,
