@@ -300,10 +300,7 @@ function sendSearchMessage( query_string,  senderID){
               {
                 type: "postback",
                 title: "1-10",
-                payload: [{
-                  from_number: 0,
-                  search_string: "query_string"
-                }]
+                payload: JSON.stringify({ x: 5, y: 6 })
               },
               {
                 type: "postback",
