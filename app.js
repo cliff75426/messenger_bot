@@ -36,7 +36,7 @@ client.search({
   }).then(function (resp) {
     var hits = resp.hits.hits;
     //console.log(hits);
-    console.log(resp);
+    console.log("QAZWSX: "+JSON.stringify(hits));
   }, function (err) {
     console.trace(err.message);
 });

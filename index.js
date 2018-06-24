@@ -325,15 +325,15 @@ function sendSearchMessage( query_string,  senderID){
 function weblist(resp,senderID){
 
   var result;
-  var source = resp.hits.hits._source;
+  var source = resp.hits.hits;
 
   for (var i = 0; i < resp.hits.hits.length; i++){
     var add_string = {
-      "title": source.title,
-      "subtitle": source.content,
+      "title": source[i]._source.title,
+      "subtitle": source[i]._source.content,
       "default_action": {
         "type": "web_url",
-        "url": source.link,
+        "url": source[i]._source.link,
         "messenger_extensions": false,
         "webview_height_ratio": "tall"
       }
