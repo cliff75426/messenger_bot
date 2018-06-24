@@ -327,10 +327,10 @@ function weblist(senderID){
 
   var messageData = {
   "recipient":{
-    "id":senderID
+    "id":"RECIPIENT_ID"
   },
+  "message": {
     "attachment": {
-      "message": {
       "type": "template",
       "payload": {
         "template_type": "list",
@@ -351,7 +351,17 @@ function weblist(senderID){
               }
             ]
           },
-        {
+          {
+            "title": "Classic White T-Shirt",
+            "subtitle": "See all our colors",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+              "messenger_extensions": false,
+              "webview_height_ratio": "tall"
+            }
+          },
+          {
             "title": "Classic Blue T-Shirt",
             "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
             "subtitle": "100% Cotton, 200% Comfortable",
@@ -384,6 +394,7 @@ function weblist(senderID){
       }
     }
   }
+
 };
 
 
