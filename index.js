@@ -329,8 +329,8 @@ function weblist(senderID){
   "recipient":{
     "id":senderID
   },
-  "message": {
     "attachment": {
+      "message": {
       "type": "template",
       "payload": {
         "template_type": "list",
