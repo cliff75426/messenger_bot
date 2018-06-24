@@ -56,6 +56,7 @@ app.post('/webhook/', function(req, res) {
         if(event.message){
           handleMessage(senderID, event);
         }else if(event.postback && event.postback.payload){
+
           handlePostback(senderID, event);
         }
       }
@@ -128,7 +129,7 @@ function sendTextMessage(senderID,messageText){
 function handlePostback(senderID,event){
   console.log(JSON.stringify(event));
   var payload = event.postback.payload;
-
+  console.log(event);
 
 }
 
@@ -295,7 +296,6 @@ function sendSearchMessage( query_string,  senderID){
           elements: [{
             title: "總共搜尋： " + resp.hits.total,
             subtitle: query_string,
-            image_url: "https://www.haskell.org/happy/Happy.gif",
             buttons :[
               {
                 type: "postback",
