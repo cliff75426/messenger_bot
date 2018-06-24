@@ -322,18 +322,33 @@ function sendSearchMessage( query_string,  senderID){
 }
 
 
-function weblist(senderID){
+function weblist(resp,senderID){
 
-var result = {
-            "title": "Classic White T-Shirt",
-            "subtitle": "See all our colors",
-            "default_action": {
-              "type": "web_url",
-              "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-              "messenger_extensions": false,
-              "webview_height_ratio": "tall"
-            }
-          };
+  var result;
+  var source = resp.hits.hits._source;
+  for (var i = 0, i<=resp.hits.hits.length, i++){
+    var add_string = {
+      "title": source.title,
+      "subtitle": source.content,
+      "default_action": {
+        "type": "web_url",
+        "url": source.link,
+        "messenger_extensions": false,
+        "webview_height_ratio": "tall"
+      }
+    };
+
+    if(i == 0){
+     result = add_string;
+    }else{
+     result = result +","+add_string;
+    }
+
+
+  }
+
+console.log(result);
+
   var messageData = {
   "recipient":{
     "id":senderID
@@ -371,6 +386,45 @@ var result = {
 function result( from_number, query_string){
 
 
+  var client = new elasticsearch.Client({
+    host: '140.123.4.74:9200',
+    log: 'trace'
+  });
+
+
+  client.ping({
+    // ping usually has a 3000ms timeout
+    requestTimeout: 1000
+  }, function (error) {
+    if (error) {
+      console.trace('elasticsearch cluster is down!');
+    } else {
+      console.log('All is well');
+    }
+  });
+
+  client.search({
+    index: 'news',
+    type: 'fulltext',
+    body: {
+      from: from_number,
+      size: size_number,
+      query: {
+        match: {
+          content: query_string
+        }
+      },
+      highlight : {
+          fields : {
+              content : {}
+          }
+      }
+    }
+    }).then(function (resp) {
+
+    }, function (err) {
+      console.trace(err.message);
+  });
 
 }
 
