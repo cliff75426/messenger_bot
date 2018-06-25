@@ -330,7 +330,7 @@ function weblist(resp,senderID){
   for (var i = 0; i < resp.hits.hits.length; i++){
     var add_string = {
       "title": source[i]._source.title,
-      "subtitle": source[i].highlight.content[0],
+      "subtitle": "命中分數: "+ source[i]._score,
       "default_action": {
         "type": "web_url",
         "url": source[i]._source.link,
