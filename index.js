@@ -81,11 +81,14 @@ function handleMessage(senderID,event){
       console.log("訊息處理");
 
       if(response.result.action == "train"){
+        console.log(JSON.stringify(response));
         strStation = response.result.parameters.start_station;
         arrStation = response.result.parameters.arrive_station;
         console.log('起點： ' + strStation);
         console.log('終點： ' + arrStation);
         TrainSchedule(strStation,arrStation,senderID);
+      }else if(response.result.action == false){
+
       }else{
         console.log("test");
         switch (received_message.text){
