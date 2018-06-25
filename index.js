@@ -300,13 +300,13 @@ function sendSearchMessage( query_string,  senderID){
             buttons :[
               {
                 type: "postback",
-                title: "1-10",
+                title: "1-5",
                 payload: JSON.stringify({ from_position:0, search_string: query_string})
               },
               {
                 type: "postback",
-                title: "10-20",
-                payload: JSON.stringify({ from_position:10, search_string: query_string})
+                title: "5-10",
+                payload: JSON.stringify({ from_position:5, search_string: query_string})
               }
             ]
           }]
@@ -330,7 +330,7 @@ function weblist(resp,senderID){
   for (var i = 0; i < resp.hits.hits.length; i++){
     var add_string = {
       "title": source[i]._source.title,
-      "subtitle": "testttest",
+      "subtitle": source[i]._source.content,
       "default_action": {
         "type": "web_url",
         "url": source[i]._source.link,
@@ -409,7 +409,7 @@ function result( from_number, query_string,senderID){
     type: 'fulltext',
     body: {
       from: from_number,
-      size: 3,
+      size: 5,
       query: {
         match: {
           content: query_string
