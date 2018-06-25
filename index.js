@@ -385,7 +385,7 @@ console.log(JSON.stringify(result));
           {
             "title": "View More",
             "type": "postback",
-            "payload": JSON.stringify({name: view_more});
+            "payload": JSON.stringify({name: "view_more"});
           }
         ]
       }
