@@ -131,7 +131,19 @@ function handlePostback(senderID,event){
   var payload = event.postback.payload;
   var payload = JSON.parse(payload);
   console.log("HANDLE"+JSON.stringify(payload));
-  result(payload.from_position,payload.search_string,senderID);
+
+  switch(payload.name){
+    case 'search_button':
+      result(payload.from_position,payload.search_string,senderID);
+      break;
+    case 'view_more':
+      break;
+    default:
+      break;
+  }
+
+
+
 }
 
 function callSendAPI(messageData){
@@ -284,37 +296,42 @@ function sendSearchMessage( query_string,  senderID){
     }
     }).then(function (resp) {
 
-  console.log(resp.hits.total);
-  var messageData = {
-    recipient:{
-      id: senderID
-    },
-    message:{
-      attachment:{
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: query_string,
-            subtitle: "總共搜尋： " + resp.hits.total+ " 筆",
-            buttons :[
-              {
-                type: "postback",
-                title: "1-4",
-                payload: JSON.stringify({ from_position:0, search_string: query_string})
-              },
-              {
-                type: "postback",
-                title: "5-8",
-                payload: JSON.stringify({ from_position:5, search_string: query_string})
-              }
-            ]
-          }]
-        }
-      }
-    }
-  };
-  callSendAPI(messageData);
+         console.log(resp.hits.total);
+         var messageData = {
+           recipient:{
+             id: senderID
+           },
+           message:{
+             attachment:{
+               type: "template",
+               payload: {
+                 template_type: "generic",
+                 elements: [{
+                   title: query_string,
+                   subtitle: "總共搜尋： " + resp.hits.total+ " 筆",
+                   buttons :[
+                     {
+                       type: "postback",
+                       title: "1-4",
+                       payload: JSON.stringify({ name: 'search_button',from_position:0, search_string: query_string})
+                     },
+                     {
+                       type: "postback",
+                       title: "4-7",
+                       payload: JSON.stringify({ name: 'search_button',from_position:4, search_string: query_string})
+                     },
+                     {
+                       type: "postback",
+                       title: "8-11",
+                       payload: JSON.stringify({ name: 'search_button',from_position:8, search_string: query_string})
+                     }
+                   ]
+                 }]
+               }
+             }
+           }
+         };
+         callSendAPI(messageData);
 
     }, function (err) {
       console.trace(err.message);
@@ -368,7 +385,7 @@ console.log(JSON.stringify(result));
           {
             "title": "View More",
             "type": "postback",
-            "payload": "payload"
+            "payload": JSON.stringify({name: view_more});
           }
         ]
       }
@@ -389,7 +406,7 @@ function result( from_number, query_string,senderID){
 
   var client = new elasticsearch.Client({
     host: '140.123.4.74:9200',
-    log: 'trace'
+    log: 'tracee
   });
 
 
