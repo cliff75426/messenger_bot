@@ -75,8 +75,6 @@ function handleMessage(senderID,event){
   if(received_message.text){
     var request = dialogflow.textRequest(received_message.text, {sessionId: senderID});
 
-    console.log('REQUEST111: '+ dialogflow.toString());
-    console.log('REQUEST: '+ dialogflow.textRequest(received_message.text, {sessionId: senderID}).toString());
     request.on('response', function(response){
       console.log("訊息處理");
 
@@ -86,6 +84,7 @@ function handleMessage(senderID,event){
         arrStation = response.result.parameters.arrive_station;
         console.log('起點： ' + strStation);
         console.log('終點： ' + arrStation);
+        sendTextMessage( senderID, response.result.fulfillment.speech);
         TrainSchedule(strStation,arrStation,senderID);
       }else if(response.result.action == false){
 
