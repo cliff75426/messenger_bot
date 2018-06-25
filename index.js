@@ -406,7 +406,7 @@ function result( from_number, query_string,senderID){
 
   var client = new elasticsearch.Client({
     host: '140.123.4.74:9200',
-    log: 'tracee
+    log: 'trace'
   });
 
 
