@@ -300,12 +300,12 @@ function sendSearchMessage( query_string,  senderID){
             buttons :[
               {
                 type: "postback",
-                title: "1-5",
+                title: "1-4",
                 payload: JSON.stringify({ from_position:0, search_string: query_string})
               },
               {
                 type: "postback",
-                title: "5-10",
+                title: "5-8",
                 payload: JSON.stringify({ from_position:5, search_string: query_string})
               }
             ]
@@ -330,7 +330,7 @@ function weblist(resp,senderID){
   for (var i = 0; i < resp.hits.hits.length; i++){
     var add_string = {
       "title": source[i]._source.title,
-      "subtitle": "命中分數: "+ source[i]._score,
+      "subtitle": "命中分數: "+ source[i]._source.content,
       "default_action": {
         "type": "web_url",
         "url": source[i]._source.link,
@@ -409,7 +409,7 @@ function result( from_number, query_string,senderID){
     type: 'fulltext',
     body: {
       from: from_number,
-      size: 5,
+      size: 4,
       query: {
         match: {
           content: query_string
