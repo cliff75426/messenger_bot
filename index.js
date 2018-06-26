@@ -407,12 +407,12 @@ function weblist( from_number, query_string, resp, senderID){
     }
   }
 
-  for(var i = 0; i < 2;i++){
+  for(var i = 0; i < 1;i++){
 
     number = from_number+(i+1)*4;
     var add_string={
      "type": "postback",
-     "title": number+'-'+(number+1),
+     "title": number+'-'+(number+3),
      "payload": JSON.stringify({ name: 'search_button',from_position:number, search_string: query_string})
 
     };
