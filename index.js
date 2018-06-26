@@ -102,6 +102,10 @@ function handleMessage(senderID,event){
           sendTextMessage( senderID, response.result.fulfillment.speech);
           sendSearchMessage(searchstr,senderID);
           break;
+        case 'readme':
+          console.log(JSON.stringify(response));
+          sendTextMessage( senderID, response.result.fulfillment.speech);
+          break;
         default:
           console.log(JSON.stringify(response));
           sendTextMessage( senderID, response.result.fulfillment.speech);
