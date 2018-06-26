@@ -75,73 +75,35 @@ function handleMessage(senderID,event){
   if(received_message.text){
     var request = dialogflow.textRequest(received_message.text, {sessionId: senderID});
 
-
-
-
     request.on('response', function(response){
       console.log("訊息處理");
 
-      switch(response.result.action){
-
-        case 'train':
-          console.log(JSON.stringify(response));
-          strStation = response.result.parameters.start_station;
-          arrStation = response.result.parameters.arrive_station;
-          console.log('起點： ' + strStation);
-          console.log('終點： ' + arrStation);
-          sendTextMessage( senderID, response.result.fulfillment.speech);
-          TrainSchedule(strStation,arrStation,senderID);
-          break;
-        case 'searchnews':
-          sendTextMessage( senderID, response.result.fulfillment.speech);
-          break;
-        case 'searchresults':
-          searchstr = response.result.parameters.any;
-          sendSearchMessage(searchstr,senderID);
-          break;
-        default:
-          break;
-
+      if(response.result.action == "train"){
+        console.log(JSON.stringify(response));
+        strStation = response.result.parameters.start_station;
+        arrStation = response.result.parameters.arrive_station;
+        console.log('起點： ' + strStation);
+        console.log('終點： ' + arrStation);
+        sendTextMessage( senderID, response.result.fulfillment.speech);
+        TrainSchedule(strStation,arrStation,senderID);
+      }else if(response.result.action == "searchnews"){
+        console.log(JSON.stringify(response));
+      }else{
+        console.log("test");
+        switch (received_message.text){
+          case '你好' :
+            sendTextMessage(senderID, "我很好喔，那你呢？");
+            break;
+          case 'structure' :
+            sendStructuredMessage(senderID);
+            break;
+          default :
+            sendSearchMessage(received_message.text,senderID);
+            //elasticsearch_result(0,10,"安全");
+            break;
+        }
+      }
     });
-
-
-
-
-
-//    request.on('response', function(response){
-//      console.log("訊息處理");
-//
-//      if(response.result.action == "train"){
-//        console.log(JSON.stringify(response));
-//        strStation = response.result.parameters.start_station;
-//        arrStation = response.result.parameters.arrive_station;
-//        console.log('起點： ' + strStation);
-//        console.log('終點： ' + arrStation);
-//        sendTextMessage( senderID, response.result.fulfillment.speech);
-//        TrainSchedule(strStation,arrStation,senderID);
-//      }else if(response.result.action == "searchnews"){
-//        console.log(JSON.stringify(response));
-//      }else{
-//        console.log("test");
-//        switch (received_message.text){
-//          case '你好' :
-//            sendTextMessage(senderID, "我很好喔，那你呢？");
-//            break;
-//          case 'structure' :
-//            sendStructuredMessage(senderID);
-//            break;
-//          default :
-//            sendSearchMessage(received_message.text,senderID);
-//            //elasticsearch_result(0,10,"安全");
-//            break;
-//        }
-//      }
-//    });
-
-
-
-
-
     request.on('error',function(error){
       console.log(error);
     });
