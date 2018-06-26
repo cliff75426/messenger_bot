@@ -99,10 +99,12 @@ function handleMessage(senderID,event){
         case 'searchresults':
           console.log(JSON.stringify(response));
           searchstr = response.result.parameters.any;
+          sendTextMessage( senderID, response.result.fulfillment.speech);
           sendSearchMessage(searchstr,senderID);
           break;
         default:
           console.log(JSON.stringify(response));
+          sendTextMessage( senderID, response.result.fulfillment.speech);
           break;
       }
     });
