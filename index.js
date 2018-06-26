@@ -384,15 +384,15 @@ function sendSearchMessage( query_string,  senderID){
 }
 
 
-function weblist(resp,senderID){
+function weblist( from_number, query_string, resp, senderID){
 
   var result;
+  var view_button;
   var source = resp.hits.hits;
-
   for (var i = 0; i < resp.hits.hits.length; i++){
     var add_string = {
       "title": source[i]._source.title,
-      "subtitle": "命中分數: "+ source[i]._source.content,
+      "subtitle": source[i]._source.content,
       "default_action": {
         "type": "web_url",
         "url": source[i]._source.link,
@@ -400,19 +400,34 @@ function weblist(resp,senderID){
         "webview_height_ratio": "tall"
       }
     };
-
     if(i == 0){
      result = JSON.stringify(add_string);
     }else{
      result = result +","+JSON.stringify(add_string);
     }
-
-
   }
-console.log(result);
+
+  for(var i = 0; i < 2;i++){
+
+    number = from_number+(i+1)*4;
+    var add_string={
+     "type": "postback",
+     "title": number+'-'+(number+1),
+     "payload": JSON.stringify({ name: 'search_button',from_position:number, search_string: query_string})
+
+    };
+    if(i == 0){
+     view_button = JSON.stringify(add_string);
+    }else{
+     view_button = view_button +","+JSON.stringify(add_string);
+    }
+  }
+console.log(view_button);
 result = "["+result+"]";
+view_button = "["+view_button+"]";
 result = JSON.parse(result);
-console.log(JSON.stringify(result));
+view_button = JSON.parse(view_button);
+console.log(JSON.stringify(view_button));
 
   var messageData = {
   "recipient":{
@@ -426,13 +441,8 @@ console.log(JSON.stringify(result));
         "top_element_style": "compact",
         "elements":
           result,
-         "buttons": [
-          {
-            "title": "View More",
-            "type": "postback",
-            "payload": JSON.stringify({name: "view_more"})
-          }
-        ]
+         "buttons":
+          view_button
       }
     }
   }
@@ -485,7 +495,7 @@ function result( from_number, query_string,senderID){
     }
     }).then(function (resp) {
 
-      weblist(resp,senderID);
+      weblist( from_number,resp, query_string, senderID);
 
     }, function (err) {
       console.trace(err.message);
