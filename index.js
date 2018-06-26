@@ -101,7 +101,7 @@ function handleMessage(senderID,event){
           break;
         default:
           break;
-
+      }
     });
 
 
