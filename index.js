@@ -412,7 +412,7 @@ function weblist( from_number, query_string, resp, senderID){
     number = from_number+(i+1)*4;
     var add_string={
      "type": "postback",
-     "title": "下一頁：  "number+'-'+(number+3),
+     "title": "下一頁：  "+number+'-'+(number+3),
      "payload": JSON.stringify({ name: 'search_button',from_position:number, search_string: query_string})
 
     };
