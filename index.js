@@ -86,8 +86,8 @@ function handleMessage(senderID,event){
         console.log('終點： ' + arrStation);
         sendTextMessage( senderID, response.result.fulfillment.speech);
         TrainSchedule(strStation,arrStation,senderID);
-      }else if(response.result.action == false){
-
+      }else if(response.result.action == "searchnews"){
+        console.log(JSON.stringify(response));
       }else{
         console.log("test");
         switch (received_message.text){
