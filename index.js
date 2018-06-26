@@ -93,13 +93,16 @@ function handleMessage(senderID,event){
           TrainSchedule(strStation,arrStation,senderID);
           break;
         case 'searchnews':
+          console.log(JSON.stringify(response));
           sendTextMessage( senderID, response.result.fulfillment.speech);
           break;
         case 'searchresults':
+          console.log(JSON.stringify(response));
           searchstr = response.result.parameters.any;
           sendSearchMessage(searchstr,senderID);
           break;
         default:
+          console.log(JSON.stringify(response));
           break;
       }
     });
